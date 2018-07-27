@@ -3,65 +3,69 @@ package com.darraghblake;
 public class Main {
 
     public static void main(String[] args) {
-        numberToWords(1000);
+        numberToWords(-222);
     }
 
     public static void numberToWords(int number) {
         int length = getDigitCount(number);
-        String word = "";
+        int reverseN = reverse(number);
+        int reverseLength = 0;
+        StringBuilder word = new StringBuilder();
         if (number < 0) {
             System.out.println("Invalid Value");
-        } else {
-            int reverse = reverseNumber(number);
-            for (int i = length; i > 0; i--) {
-                if (reverse != i) {
-                    word += "Zero ";
-                }
-            }
-            while (reverse > 0) {
-                switch (reverse % 10) {
+        } else if (number > 0) {
+            while (reverseN > 0) {
+                switch (reverseN % 10) {
                     case 0:
-                        word = word + "Zero ";
+                        word.append("Zero");
                         break;
                     case 1:
-                        word = word + "One ";
+                        word.append("One");
                         break;
                     case 2:
-                        word = word + "Two ";
+                        word.append("Two");
                         break;
                     case 3:
-                        word = word + "Three ";
+                        word.append("Three");
                         break;
                     case 4:
-                        word = word + "Four ";
+                        word.append("Four");
                         break;
                     case 5:
-                        word = word + "Five ";
+                        word.append("Five");
                         break;
                     case 6:
-                        word = word + "Six ";
+                        word.append("Six");
                         break;
                     case 7:
-                        word = word + "Seven ";
+                        word.append("Seven");
                         break;
                     case 8:
-                        word = word + "Eight ";
+                        word.append("Eight");
                         break;
                     case 9:
-                        word = word + "Nine ";
+                        word.append("Nine");
                         break;
                     default:
-                        word = word + "Invalid Number";
+                        word.append("Invalid Number");
                         break;
                 }
-                reverse /= 10;
+                reverseLength += 1;
+                reverseN /= 10;
+                if (reverseLength > 0 && reverseLength != length && word.toString() != "Invalid Value") {
+                    word.append(" ");
+                }
             }
         }
-
+        for (int i = reverseLength; i < length; i++) {
+            if (reverseN != i) {
+                word.append("Zero");
+            }
+        }
         System.out.println(word);
     }
 
-    public static int reverseNumber(int number) {
+    public static int reverse(int number) {
         if (number < 0) {
             number = number * -1;
         }
